@@ -3,11 +3,9 @@ import time
 
 # Récupération des valeurs de l'utilisateur pour régler l'heure
 heure, minute, seconde = map(int, input("Réglez votre heure : ").split())
-heure_actuelle = [heure, minute, seconde]  # Modification des valeurs dans la liste, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
 
-# Variable qui contient un caractère pour qui servira à activer la configuration de l'alarme
-active_alarme = "y"
-refus_alarme = "n"
+# Modification des valeurs dans la liste, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
+heure_actuelle = [heure, minute, seconde]
 
 alarme = None  # Variable pour la configuration à suivre dans le programme
 
@@ -21,12 +19,14 @@ def regler_heure(heures, minutes, secondes):
     # Fonction simple qui rappelle la liste "heure_actuelle" et lui redonne la valeur du début
     global heure_actuelle
     heure_actuelle = [heures, minutes, secondes]
-    afficher_heure()
+    
 
 def config_alarme():
     # Rappelle de la variable "alarme" et attribution de la même valeur en tuple que le réglage
     global alarme
-    reponse = str(input("Appuyez sur 'y' pour configurer l'alarme, ou 'n' pour ne pas la configurer : "))
+    active_alarme = "y" # Variable qui contient un caractère pour qui servira à activer la configuration de l'alarme
+    refus_alarme = "n"
+    reponse = (input("Appuyez sur 'y' pour configurer l'alarme, ou 'n' pour ne pas la configurer : "))
     if reponse == active_alarme:
         heure_alarme, minute_alarme, seconde_alarme = map(int, input("Réglez votre heure d'alarme : ").split())
         alarme = [heure_alarme, minute_alarme, seconde_alarme]
@@ -34,7 +34,7 @@ def config_alarme():
 
     elif reponse == refus_alarme:
         afficher_heure()
-        actualiser_heure
+        actualiser_heure()
 
     else:
         print("Veillez rentrée 'y' ou 'n' pour la configuration de l'alarme")
