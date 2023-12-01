@@ -68,3 +68,7 @@ config_alarme()
 # Rajoute d'une boucle pour continuer d'actualiser l'heure peut importe l'action
 while True:
     actualiser_heure()
+
+
+
+#--------------------------------------Kevin Peretti-Malaguti---------------------------------------------------------------
