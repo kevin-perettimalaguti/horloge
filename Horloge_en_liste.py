@@ -4,8 +4,8 @@ import time
 # Récupération des valeurs de l'utilisateur pour régler l'heure
 heure, minute, seconde = map(int, input("Réglez votre heure : ").split())
 
-# Modification des valeurs dans la liste, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
-heure_actuelle = [heure, minute, seconde]
+# Modification des valeurs dans le tuple, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
+heure_actuelle = (heure, minute, seconde)
 
 alarme = None  # Variable pour la configuration à suivre dans le programme
 
@@ -18,7 +18,7 @@ def afficher_heure():
 def regler_heure(heures, minutes, secondes):
     # Fonction simple qui rappelle la liste "heure_actuelle" et lui redonne la valeur du début
     global heure_actuelle
-    heure_actuelle = [heures, minutes, secondes]
+    heure_actuelle = (heures, minutes, secondes)
     
 
 def config_alarme():
@@ -29,7 +29,7 @@ def config_alarme():
     reponse = (input("Appuyez sur 'y' pour configurer l'alarme, ou 'n' pour ne pas la configurer : "))
     if reponse == active_alarme:
         heure_alarme, minute_alarme, seconde_alarme = map(int, input("Réglez votre heure d'alarme : ").split())
-        alarme = [heure_alarme, minute_alarme, seconde_alarme]
+        alarme = (heure_alarme, minute_alarme, seconde_alarme)
         print(f"Alarme configurée pour {alarme[0]}:{alarme[1]}:{alarme[2]}")
 
     elif reponse == refus_alarme:
@@ -51,13 +51,16 @@ def actualiser_heure():
     global heure_actuelle
     while True:
         time.sleep(1)
-        heure_actuelle[2] += 1
+        heure_actuelle = (heure_actuelle[0], heure_actuelle[1], heure_actuelle[2] + 1)
+        
         if heure_actuelle[2] == 60:
-            heure_actuelle[1] += 1
-            heure_actuelle[2] = 0
+            heure_actuelle = (heure_actuelle[0], heure_actuelle[1] + 1, 0)
+            
             if heure_actuelle[1] == 60:
-                heure_actuelle[0] += 1
-                heure_actuelle[1] = 0
+                heure_actuelle = (heure_actuelle[0] + 1, 0, 0)
+                
+                if heure_actuelle[0] == 24:
+                    heure_actuelle = (0, 0, 0)
         afficher_heure()
         verifier_alarme()
 
