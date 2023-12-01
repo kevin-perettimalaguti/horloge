@@ -1,10 +1,13 @@
 # Importation de la bibliothèque 'time'
 import time
 
-# Récupération des valeurs de l'utilisateur pour régler l'heure
-heure, minute, seconde = map(int, input("Réglez votre heure : ").split())
+# Création d'un tuple
+heure_actuelle_tuple = (0, 0, 0)
 
-# Modification des valeurs dans la liste, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
+# Transformation de mon tuple en liste pour permettre les modification des valeurs nécessaires dans le programme
+heure_actuelle = list(heure_actuelle_tuple)
+
+heure, minute, seconde = map(int, input("Réglez votre heure : ").split())
 heure_actuelle = [heure, minute, seconde]
 
 alarme = None  # Variable pour la configuration à suivre dans le programme
