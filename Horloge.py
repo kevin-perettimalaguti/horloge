@@ -3,10 +3,11 @@ import time
 
 # Récupération des valeurs de l'utilisateur pour régler l'heure
 heure, minute, seconde = map(int, input("Réglez votre heure : ").split())
-heure_actuelle = [heure, minute, seconde]  # Modification des valeurs dans la liste
+heure_actuelle = [heure, minute, seconde]  # Modification des valeurs dans la liste, on fait une liste et pas un tuple pour pouvoir modifiées les valeurs
 
 # Variable qui contient un caractère pour qui servira à activer la configuration de l'alarme
-active_alarme = "h"
+active_alarme = "y"
+refus_alarme = "n"
 
 alarme = None  # Variable pour la configuration à suivre dans le programme
 
@@ -23,19 +24,27 @@ def regler_heure(heures, minutes, secondes):
     afficher_heure()
 
 def config_alarme():
-    # Rappelle de la variable "alarme" et attribution de la même valeur en liste que le réglage
+    # Rappelle de la variable "alarme" et attribution de la même valeur en tuple que le réglage
     global alarme
-    reponse = input("Appuyez sur 'h' pour configurer l'alarme, ou 'non' pour ne pas la configurer : ")
+    reponse = str(input("Appuyez sur 'y' pour configurer l'alarme, ou 'n' pour ne pas la configurer : "))
     if reponse == active_alarme:
         heure_alarme, minute_alarme, seconde_alarme = map(int, input("Réglez votre heure d'alarme : ").split())
         alarme = [heure_alarme, minute_alarme, seconde_alarme]
         print(f"Alarme configurée pour {alarme[0]}:{alarme[1]}:{alarme[2]}")
 
+    elif reponse == refus_alarme:
+        afficher_heure()
+        actualiser_heure
+
+    else:
+        print("Veillez rentrée 'y' ou 'n' pour la configuration de l'alarme")
+        config_alarme()    
+
 def verifier_alarme():
     # Vérification de l'alarme et affichage du message si l'heure actuelle correspond à l'alarme
     global heure_actuelle, alarme
     if alarme is not None and heure_actuelle == alarme:
-        print("Réveillez-vous ! C'est l'heure")
+        print("Réveillez-vous ! C'est l'heure") 
 
 def actualiser_heure():
     # Actualisation de l'heure toutes les secondes
@@ -52,17 +61,10 @@ def actualiser_heure():
         afficher_heure()
         verifier_alarme()
 
-# Remplissage des valeurs initiales
+# Rappelle des fonction pour un bonne fonctionnalité du script
 regler_heure(heure, minute, seconde)
 config_alarme()
 
+# Rajoute d'une boucle pour continuer d'actualiser l'heure peut importe l'action
 while True:
     actualiser_heure()
-
-
-
-
-
-
-
-
